@@ -18,8 +18,6 @@ public class Location {
     private String region;
     private String country;
 
-    protected Location() {}
-
     public String getZip() { return zip; }
     public void setZip(String zip) { this.zip = zip; }
     

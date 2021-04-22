@@ -24,8 +24,6 @@ public class Condition {
     @JoinColumn(name="weather_id", nullable=false)
     private Weather weather;
 
-    protected Condition() {}
-
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
 

@@ -35,8 +35,6 @@ public class Weather {
     private Atmosphere atmosphere;
 
     private Date date;
-    
-    protected Weather() {}
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }

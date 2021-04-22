@@ -24,8 +24,6 @@ public class Atmosphere {
     @JoinColumn(name="weather_id", nullable=false)
     private Weather weather;
 
-    protected Atmosphere() {}
-
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
 
