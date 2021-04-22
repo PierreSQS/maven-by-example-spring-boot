@@ -37,6 +37,10 @@
             <groupId>org.sonatype.mavenbook.multi</groupId>
             <artifactId>springboot-multi-model</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.sonatype.mavenbook.multi</groupId>
+            <artifactId>springboot-multi-weather</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

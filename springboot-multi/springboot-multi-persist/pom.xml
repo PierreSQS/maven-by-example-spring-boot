@@ -16,4 +16,11 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.sonatype.mavenbook.multi</groupId>
+            <artifactId>springboot-multi-model</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>
