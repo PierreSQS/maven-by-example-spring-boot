@@ -1,17 +1,16 @@
 package org.sonatype.mavenbook.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.*;
 
 @Entity
+//TODO remove Named Query
 @NamedQueries({
 	@NamedQuery(name="Location.uniqueByZip", query="from Location l where l.zip = :zip")
 })
 public class Location {
     
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private String zip;
 
     private String city;
