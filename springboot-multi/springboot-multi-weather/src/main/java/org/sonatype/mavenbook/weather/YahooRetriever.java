@@ -38,8 +38,8 @@ public class YahooRetriever {
 		String[] cityAndCountry = location.split("/");
 		log.info("Retrieving Weather Data in "+cityAndCountry[0]);
 		configureRequestContext();
-		InputStream dataSource = retrieveData(location);
-		return dataSource;
+		return retrieveData(location);
+
 	}
 
 	public void configureRequestContext() throws Exception {
@@ -49,7 +49,7 @@ public class YahooRetriever {
 		rand.nextBytes(nonce);
 		oauthNonce = new String(nonce).replaceAll("\\W", "");
 
-		List<String> parameters = new ArrayList<String>();
+		List<String> parameters = new ArrayList<>();
 		parameters.add("oauth_consumer_key=" + CONSUMERKEY);
 		parameters.add("oauth_nonce=" + oauthNonce);
 		parameters.add("oauth_signature_method=HMAC-SHA1");
@@ -62,7 +62,7 @@ public class YahooRetriever {
 
 		String params = parameters.stream().collect(Collectors.joining("&"));
 
-		StringBuffer parametersList = new StringBuffer(params);
+		StringBuilder parametersList = new StringBuilder(params);
 
 		String signatureString = "GET&" + URLEncoder.encode(YAHOOWEATHERURL, "UTF-8") + "&"
 				+ URLEncoder.encode(parametersList.toString(), "UTF-8");
@@ -92,7 +92,7 @@ public class YahooRetriever {
             "oauth_signature=\"" + signature + "\", " +
             "oauth_version=\"1.0\"";
         
-        
+        log.info("Autorisation: {}",authorizationLine);
         log.info( "Trying HttpClient 4.3" );
 
         CloseableHttpClient client = HttpClients.custom().build();
@@ -117,9 +117,8 @@ public class YahooRetriever {
         
         log.info( "status code: "+statusCode );
 
-        InputStream inputStream = response.getEntity().getContent();
+        return response.getEntity().getContent();
         
-        return inputStream;
 	}
 	
 	public void go(String location) throws Exception {
@@ -131,7 +130,7 @@ public class YahooRetriever {
 		try {
 			new YahooRetriever().go(args[0]);
 		} catch (Exception e) {
-			e.getMessage();
+			log.info("Connection unsuccessful!!",e);
 		}
 	}
 }
