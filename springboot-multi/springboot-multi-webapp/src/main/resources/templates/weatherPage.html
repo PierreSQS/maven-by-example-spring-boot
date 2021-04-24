@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Yahoo Weather Forecast</title>
 </head>
 <body>
-    <h1>To Be Implemented!</h1>
+<strong th:text="|Current Weather Conditions for:
+    ${weather.location.city}, ${weather.location.region}, ${weather.location.country}|">Current Weather Conditions for:</strong><br/>
+<ul>
+    <li th:text="|Temperature: ${weather.condition.temp}|">Temperature: </li>
+    <li th:text="|Temperature: ${weather.condition.text}|">Condition: </li>
+    <li th:text="|Temperature: ${weather.atmosphere.humidity}|">Humidity: </li>
+    <li th:text="|Temperature: ${weather.wind.chill}|">Wind Chill: </li>
+    <li th:text="|Temperature: ${weather.date}|">Date: </li>
+</ul>
+
 </body>
 </html>
+
+
+
