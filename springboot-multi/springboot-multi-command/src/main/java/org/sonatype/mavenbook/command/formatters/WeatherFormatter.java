@@ -1,0 +1,43 @@
+package org.sonatype.mavenbook.command.formatters;
+
+import lombok.extern.slf4j.Slf4j;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.sonatype.mavenbook.model.Location;
+import org.sonatype.mavenbook.model.Weather;
+import org.springframework.context.ApplicationContext;
+
+import java.io.*;
+import java.util.List;
+
+@Slf4j
+public class WeatherFormatter {
+
+    public String formatWeather(Weather weather, ApplicationContext ctx) throws Exception {
+        log.info( "Formatting Weather Data" );
+
+        InputStream inputStream = ctx.getResource("templates/velocity/weather.vm").getInputStream();
+
+        Reader reader = new InputStreamReader(inputStream);
+
+        VelocityContext context = new VelocityContext();
+        context.put("weather", weather );
+        StringWriter writer = new StringWriter();
+        Velocity.evaluate(context, writer, "", reader);
+        return writer.toString();
+    }
+
+    public String   formatHistory(Location location, List<Weather> weathers)
+            throws Exception {
+        log.info( "Formatting History Data" );
+        Reader reader =
+                new InputStreamReader( getClass().getClassLoader().
+                        getResourceAsStream("velocity/history.vm"));
+        VelocityContext context = new VelocityContext();
+        context.put("location", location );
+        context.put("weathers", weathers );
+        StringWriter writer = new StringWriter();
+        Velocity.evaluate(context, writer, "", reader);
+        return writer.toString();
+    }
+}

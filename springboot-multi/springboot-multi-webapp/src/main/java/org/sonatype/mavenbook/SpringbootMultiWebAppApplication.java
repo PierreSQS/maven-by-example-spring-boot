@@ -8,5 +8,4 @@ public class SpringbootMultiWebAppApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringbootMultiWebAppApplication.class, args);
     }
-
 }
