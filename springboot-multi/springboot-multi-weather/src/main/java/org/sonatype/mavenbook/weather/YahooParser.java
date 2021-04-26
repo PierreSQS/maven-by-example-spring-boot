@@ -21,57 +21,64 @@ public class YahooParser {
 
 
     public Weather parse(InputStream inputStream) throws Exception {
-	Weather weather = new Weather();
-	
-	log.info( "Creating XML Reader" );
-	SAXReader xmlReader = createXmlReader();
-	Document doc = xmlReader.read( inputStream );
-	
-	log.info( "Parsing XML Response" );
-	Location location = new Location();
-	location.setCity( doc.valueOf("/rss/channel/yweather:location/@city") );
-	location.setRegion( doc.valueOf("/rss/channel/yweather:location/@region") );
-	location.setCountry( doc.valueOf("/rss/channel/yweather:location/@country") );
-	log.info("*************** the location: {} ************", location.getCity());
-	weather.setLocation( location );
+        Weather weather = new Weather();
 
-	Condition condition = new Condition();
-	condition.setText( doc.valueOf("/rss/channel/item/yweather:condition/@text") );
-	condition.setTemp( doc.valueOf("/rss/channel/item/yweather:condition/@temp") );
-	condition.setCode( doc.valueOf("/rss/channel/item/yweather:condition/@code") );
-	condition.setDate( doc.valueOf("/rss/channel/item/yweather:condition/@date") );
-	condition.setWeather( weather );
-	weather.setCondition( condition );
+        log.info("Creating XML Reader");
+        SAXReader xmlReader = createXmlReader();
+        Document doc = xmlReader.read(inputStream);
 
-	Atmosphere atmosphere = new Atmosphere();
-	atmosphere.setHumidity( doc.valueOf("/rss/channel/yweather:atmosphere/@humidity") );
-	atmosphere.setVisibility( doc.valueOf("/rss/channel/yweather:atmosphere/@visibility") );
-	atmosphere.setPressure( doc.valueOf("/rss/channel/yweather:atmosphere/@pressure") );
-	atmosphere.setRising( doc.valueOf("/rss/channel/yweather:atmosphere/@rising") );
-	atmosphere.setWeather( weather );
-	weather.setAtmosphere( atmosphere );
+        log.info("Parsing XML Response");
+        Location location = new Location();
+        location.setCity(doc.valueOf("/rss/channel/yweather:location/@city"));
+        location.setRegion(doc.valueOf("/rss/channel/yweather:location/@region"));
+        location.setCountry(doc.valueOf("/rss/channel/yweather:location/@country"));
 
-	Wind wind = new Wind();
-	wind.setChill( doc.valueOf("/rss/channel/yweather:wind/@chill") );
-	wind.setDirection( doc.valueOf("/rss/channel/yweather:wind/@direction") );
-	wind.setSpeed( doc.valueOf("/rss/channel/yweather:wind/@speed") );
-	wind.setWeather( weather );
-	weather.setWind( wind );
+        String locationLink = doc.valueOf("/rss/channel/link");
+        log.info("location-link: {}",locationLink);
+        String woeid = locationLink.substring(54,locationLink.length()-1);
+        log.info("woeid: {}",woeid);
 
-	weather.setDate( new Date() );
-	
-	return weather;
+        location.setZip(woeid);
+        log.info("*************** the location: {} ************", location.getCity());
+        weather.setLocation(location);
+
+        Condition condition = new Condition();
+        condition.setText(doc.valueOf("/rss/channel/item/yweather:condition/@text"));
+        condition.setTemp(doc.valueOf("/rss/channel/item/yweather:condition/@temp"));
+        condition.setCode(doc.valueOf("/rss/channel/item/yweather:condition/@code"));
+        condition.setDate(doc.valueOf("/rss/channel/item/yweather:condition/@date"));
+        condition.setWeather(weather);
+        weather.setCondition(condition);
+
+        Atmosphere atmosphere = new Atmosphere();
+        atmosphere.setHumidity(doc.valueOf("/rss/channel/yweather:atmosphere/@humidity"));
+        atmosphere.setVisibility(doc.valueOf("/rss/channel/yweather:atmosphere/@visibility"));
+        atmosphere.setPressure(doc.valueOf("/rss/channel/yweather:atmosphere/@pressure"));
+        atmosphere.setRising(doc.valueOf("/rss/channel/yweather:atmosphere/@rising"));
+        atmosphere.setWeather(weather);
+        weather.setAtmosphere(atmosphere);
+
+        Wind wind = new Wind();
+        wind.setChill(doc.valueOf("/rss/channel/yweather:wind/@chill"));
+        wind.setDirection(doc.valueOf("/rss/channel/yweather:wind/@direction"));
+        wind.setSpeed(doc.valueOf("/rss/channel/yweather:wind/@speed"));
+        wind.setWeather(weather);
+        weather.setWind(wind);
+
+        weather.setDate(new Date());
+
+        return weather;
     }
-    
+
     private SAXReader createXmlReader() {
-	Map<String,String> uris = new HashMap<>();
-        uris.put( "yweather", "http://xml.weather.yahoo.com/ns/rss/1.0" );
-        
+        Map<String, String> uris = new HashMap<>();
+        uris.put("yweather", "http://xml.weather.yahoo.com/ns/rss/1.0");
+
         DocumentFactory factory = new DocumentFactory();
-        factory.setXPathNamespaceURIs( uris );
-        
-	SAXReader xmlReader = new SAXReader();
-	xmlReader.setDocumentFactory( factory );
-	return xmlReader;
+        factory.setXPathNamespaceURIs(uris);
+
+        SAXReader xmlReader = new SAXReader();
+        xmlReader.setDocumentFactory(factory);
+        return xmlReader;
     }
 }

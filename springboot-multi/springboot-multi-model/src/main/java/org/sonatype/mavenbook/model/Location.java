@@ -10,7 +10,6 @@ import javax.persistence.*;
 public class Location {
     
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private String zip;
 
     private String city;

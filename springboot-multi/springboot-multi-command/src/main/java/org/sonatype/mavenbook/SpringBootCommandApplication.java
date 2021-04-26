@@ -10,7 +10,6 @@ import org.sonatype.mavenbook.weather.WeatherService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
@@ -28,11 +27,14 @@ public class SpringBootCommandApplication {
     private final WeatherRepository weatherRepository;
     private final LocationRepository locationRepository;
     private final WeatherService weatherService;
+    private final WeatherFormatter weatherFormatter;
 
-    public SpringBootCommandApplication(WeatherRepository weatherRepository, LocationRepository locationRepository, WeatherService weatherService) {
+
+    public SpringBootCommandApplication(WeatherRepository weatherRepository, LocationRepository locationRepository, WeatherService weatherService, WeatherFormatter weatherFormatter) {
         this.weatherRepository = weatherRepository;
         this.locationRepository = locationRepository;
         this.weatherService = weatherService;
+        this.weatherFormatter = weatherFormatter;
     }
 
     public static void main(String[] args) {
@@ -41,32 +43,30 @@ public class SpringBootCommandApplication {
 
 
     @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext context) {
+    public CommandLineRunner commandLineRunner() {
         return args -> {
             log.info("Submitted Args: {}", Arrays.stream(args).collect(Collectors.toList()));
             if( args[0].equals("weather")) {
-                getWeather(args[1], context);
+                getWeather(args[1]);
             } else {
                 getHistory();
             }
-
-
         };
     }
 
-    public void getWeather(String location, ApplicationContext ctx) throws Exception {
+    public void getWeather(String location) throws Exception {
         Weather weather = weatherService.retrieveForecast(location);
         weather = weatherRepository.save(weather);
         log.debug("###### Weather Infos saved!!! ######");
         log.debug("Saved Weather: {} {} {} ", weather.getLocation().getCity(), weather.getDate(), weather.getAtmosphere().getHumidity());
-        log.info(new WeatherFormatter().formatWeather(weather,ctx));
+        log.info(weatherFormatter.formatWeather(weather));
     }
 
     public void getHistory() throws Exception {
         Location foundLocation = locationRepository.findByZip(zip);
         List<Weather> weathers = weatherRepository.findBylocation(location);
         System.out.print(
-                new WeatherFormatter().formatHistory(foundLocation, weathers));
+                weatherFormatter.formatHistory(foundLocation, weathers));
     }
 
 }

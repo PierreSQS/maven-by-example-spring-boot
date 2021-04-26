@@ -2,6 +2,7 @@ package org.sonatype.mavenbook.weather;
 
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Base64.Encoder;
@@ -37,12 +38,12 @@ public class YahooRetriever {
 	public InputStream retrieve(String location) throws Exception {
 		String[] cityAndCountry = location.split("/");
 		log.info("Retrieving Weather Data in "+cityAndCountry[0]);
-		configureRequestContext();
+		configureRequestContext(location);
 		return retrieveData(location);
 
 	}
 
-	public void configureRequestContext() throws Exception {
+	public void configureRequestContext(String location) throws Exception {
 		timestamp = new Date().getTime() / 1000;
 		byte[] nonce = new byte[32];
 		Random rand = new Random();
@@ -56,7 +57,7 @@ public class YahooRetriever {
 		parameters.add("oauth_timestamp=" + timestamp);
 		parameters.add("oauth_version=1.0");
 		// Make sure value is encoded
-		parameters.add("location=" + URLEncoder.encode("sunnyvale,ca", "UTF-8"));
+		parameters.add("location=" + URLEncoder.encode(location, StandardCharsets.UTF_8));
 
 		Collections.sort(parameters);
 
@@ -64,8 +65,8 @@ public class YahooRetriever {
 
 		StringBuilder parametersList = new StringBuilder(params);
 
-		String signatureString = "GET&" + URLEncoder.encode(YAHOOWEATHERURL, "UTF-8") + "&"
-				+ URLEncoder.encode(parametersList.toString(), "UTF-8");
+		String signatureString = "GET&" + URLEncoder.encode(YAHOOWEATHERURL, StandardCharsets.UTF_8) + "&"
+				+ URLEncoder.encode(parametersList.toString(), StandardCharsets.UTF_8);
 
 		signature = null;
 		try {
@@ -82,8 +83,7 @@ public class YahooRetriever {
 	}
 	
 	public InputStream retrieveData(String location) throws Exception {
-		String[] cityAndContry = location.split(",");
-		
+
 		String authorizationLine = "OAuth " +
             "oauth_consumer_key=\"" + CONSUMERKEY + "\", " +
             "oauth_nonce=\"" + oauthNonce + "\", " +
@@ -99,9 +99,7 @@ public class YahooRetriever {
 
         // (1) Use the new Builder API (from v4.3)
         HttpUriRequest request = RequestBuilder.get()
-                // weird for me!!! what is going on here????
-        		//.setUri("url + \"?location=sunnyvale,ca")
-                .setUri(YAHOOWEATHERURL + "?location="+cityAndContry[0]+","+cityAndContry[1])
+                .setUri(YAHOOWEATHERURL + "?location="+location)
                 // (2) Use the included enum
                 .setHeader(HttpHeaders.AUTHORIZATION, authorizationLine)
                 .setHeader(HttpHeaders.CONTENT_TYPE, "application/xml")
@@ -122,7 +120,7 @@ public class YahooRetriever {
 	}
 	
 	public void go(String location) throws Exception {
-		configureRequestContext();
+		configureRequestContext(location);
 		retrieveData(location);
 	}
 	

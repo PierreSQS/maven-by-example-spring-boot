@@ -6,14 +6,22 @@ import org.apache.velocity.app.Velocity;
 import org.sonatype.mavenbook.model.Location;
 import org.sonatype.mavenbook.model.Weather;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.List;
 
 @Slf4j
+@Component
 public class WeatherFormatter {
 
-    public String formatWeather(Weather weather, ApplicationContext ctx) throws Exception {
+    private final ApplicationContext ctx;
+
+    public WeatherFormatter(ApplicationContext ctx) {
+        this.ctx = ctx;
+    }
+
+    public String formatWeather(Weather weather) throws Exception {
         log.info( "Formatting Weather Data" );
 
         InputStream inputStream = ctx.getResource("templates/velocity/weather.vm").getInputStream();
