@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LocationRepository extends CrudRepository<Location, Long> {
-    Location findByZip(String zip);
+    Location findByWoeid(String woeid);
 }

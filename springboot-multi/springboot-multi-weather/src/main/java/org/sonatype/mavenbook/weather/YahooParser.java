@@ -37,8 +37,8 @@ public class YahooParser {
         log.info("location-link: {}",locationLink);
         String woeid = locationLink.substring(54,locationLink.length()-1);
         log.info("woeid: {}",woeid);
+        location.setWoeid(woeid);
 
-        location.setZip(woeid);
         log.info("*************** the location: {} ************", location.getCity());
         weather.setLocation(location);
 

@@ -3,21 +3,19 @@ package org.sonatype.mavenbook.model;
 import javax.persistence.*;
 
 @Entity
-//TODO remove Named Query
-@NamedQueries({
-	@NamedQuery(name="Location.uniqueByZip", query="from Location l where l.zip = :zip")
-})
 public class Location {
     
     @Id
-    private String zip;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private String id;
 
     private String city;
     private String region;
     private String country;
+    private String woeid;
 
-    public String getZip() { return zip; }
-    public void setZip(String zip) { this.zip = zip; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
     
     public String getCity() { return city; }
     public void setCity(String city) { this.city = city; }
@@ -28,4 +26,11 @@ public class Location {
     public String getCountry() { return country; }
     public void setCountry(String country) { this.country = country; }
 
+    public String getWoeid() {
+        return woeid;
+    }
+
+    public void setWoeid(String woeid) {
+        this.woeid = woeid;
+    }
 }

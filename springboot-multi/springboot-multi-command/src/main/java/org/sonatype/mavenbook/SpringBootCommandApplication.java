@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @SpringBootApplication
 public class SpringBootCommandApplication {
 
-    private String zip;
+    private String woeId;
     private String location;
 
     private final WeatherRepository weatherRepository;
@@ -63,7 +63,7 @@ public class SpringBootCommandApplication {
     }
 
     public void getHistory() throws Exception {
-        Location foundLocation = locationRepository.findByZip(zip);
+        Location foundLocation = locationRepository.findByWoeid(woeId);
         List<Weather> weathers = weatherRepository.findBylocation(location);
         System.out.print(
                 weatherFormatter.formatHistory(foundLocation, weathers));
