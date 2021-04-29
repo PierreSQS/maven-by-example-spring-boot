@@ -4,7 +4,10 @@ import org.sonatype.mavenbook.model.Location;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface LocationRepository extends CrudRepository<Location, Long> {
-    Location findByWoeid(String woeid);
+    Optional<Location> findByWoeid(String woeid);
+    Optional<Location> findByCity(String location);
 }

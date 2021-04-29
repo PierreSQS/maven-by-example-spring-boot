@@ -5,7 +5,6 @@ import org.sonatype.mavenbook.command.formatters.WeatherFormatter;
 import org.sonatype.mavenbook.model.Location;
 import org.sonatype.mavenbook.model.Weather;
 import org.sonatype.mavenbook.repository.LocationRepository;
-import org.sonatype.mavenbook.repository.WeatherRepository;
 import org.sonatype.mavenbook.weather.WeatherService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -21,17 +21,12 @@ import java.util.stream.Collectors;
 @SpringBootApplication
 public class SpringBootCommandApplication {
 
-    private String woeId;
-    private String location;
-
-    private final WeatherRepository weatherRepository;
     private final LocationRepository locationRepository;
     private final WeatherService weatherService;
     private final WeatherFormatter weatherFormatter;
 
 
-    public SpringBootCommandApplication(WeatherRepository weatherRepository, LocationRepository locationRepository, WeatherService weatherService, WeatherFormatter weatherFormatter) {
-        this.weatherRepository = weatherRepository;
+    public SpringBootCommandApplication(LocationRepository locationRepository, WeatherService weatherService, WeatherFormatter weatherFormatter) {
         this.locationRepository = locationRepository;
         this.weatherService = weatherService;
         this.weatherFormatter = weatherFormatter;
@@ -49,24 +44,26 @@ public class SpringBootCommandApplication {
             if( args[0].equals("weather")) {
                 getWeather(args[1]);
             } else {
-                getHistory();
+                getHistory(args[1]);
             }
         };
     }
 
     public void getWeather(String location) throws Exception {
         Weather weather = weatherService.retrieveForecast(location);
-        weather = weatherRepository.save(weather);
+        weather = weatherService.save(weather);
         log.debug("###### Weather Infos saved!!! ######");
         log.debug("Saved Weather: {} {} {} ", weather.getLocation().getCity(), weather.getDate(), weather.getAtmosphere().getHumidity());
         log.info(weatherFormatter.formatWeather(weather));
     }
 
-    public void getHistory() throws Exception {
-        Location foundLocation = locationRepository.findByWoeid(woeId);
-        List<Weather> weathers = weatherRepository.findBylocation(location);
-        System.out.print(
-                weatherFormatter.formatHistory(foundLocation, weathers));
+    public void getHistory(String location) throws Exception {
+        Optional<Location> foundLocation = locationRepository.findByCity(location);
+        if (foundLocation.isPresent()){
+            List<Weather> weathersInLocation = weatherService.getWeatherByLocation(location);
+            log.info(weatherFormatter.formatHistory(foundLocation.get(), weathersInLocation));
+        }
+        log.info("######## No History present!!!!#########");
     }
 
 }

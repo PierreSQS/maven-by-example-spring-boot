@@ -22,7 +22,7 @@ public class Weather {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     private Location location;
 
     @OneToOne(mappedBy="weather",cascade=CascadeType.ALL)
