@@ -30,14 +30,14 @@ public class YahooRetriever {
 	private static final String CONSUMERKEY = "dj0yJmk9MThGTERmc2VNSUxCJmQ9WVdrOVF6WklXbk5FTXpBbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTky";
 	private static final String CONSUMERSECRET = "725732a7344b12c56f4742514342c17ee7d851ca";
 	private static final String YAHOOWEATHERURL = "https://weather-ydn-yql.media.yahoo.com/forecastrss";
+	private static final String HTTPCLIENTVERSION = "4.5.13";
 	
 	private String signature;
 	private String oauthNonce;
 	private long timestamp;
 
 	public InputStream retrieve(String location) throws Exception {
-		String[] cityAndCountry = location.split("/");
-		log.info("Retrieving Weather Data in "+cityAndCountry[0]);
+		log.info("Retrieving Weather Data for location: {}...", location);
 		configureRequestContext(location);
 		return retrieveData(location);
 
@@ -56,7 +56,6 @@ public class YahooRetriever {
 		parameters.add("oauth_signature_method=HMAC-SHA1");
 		parameters.add("oauth_timestamp=" + timestamp);
 		parameters.add("oauth_version=1.0");
-		// Make sure value is encoded
 		parameters.add("location=" + URLEncoder.encode(location, StandardCharsets.UTF_8));
 
 		Collections.sort(parameters);
@@ -92,12 +91,11 @@ public class YahooRetriever {
             "oauth_signature=\"" + signature + "\", " +
             "oauth_version=\"1.0\"";
         
-        log.info("Autorisation: {}",authorizationLine);
-        log.info( "Trying HttpClient 4.3" );
+        log.info("Authorisation: {}",authorizationLine);
+        log.info( "Using Apache HttpClient {}...",HTTPCLIENTVERSION );
 
         CloseableHttpClient client = HttpClients.custom().build();
 
-        // (1) Use the new Builder API (from v4.3)
         HttpUriRequest request = RequestBuilder.get()
                 .setUri(YAHOOWEATHERURL + "?location="+location)
                 // (2) Use the included enum
