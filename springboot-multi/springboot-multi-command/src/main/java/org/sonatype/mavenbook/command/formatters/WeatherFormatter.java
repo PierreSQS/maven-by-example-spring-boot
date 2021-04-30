@@ -39,7 +39,7 @@ public class WeatherFormatter {
             throws Exception {
         log.info( "Formatting History Data" );
         Reader reader =
-                new InputStreamReader( ctx.getResource("templates/velocity/history_command.vm").getInputStream());
+                new InputStreamReader( ctx.getResource("templates/velocity/history.vm").getInputStream());
         VelocityContext context = new VelocityContext();
         context.put("location", location );
         context.put("weathers", weathers );

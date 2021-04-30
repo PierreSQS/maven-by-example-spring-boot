@@ -1,0 +1,21 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>ahoo Weather History</title>
+</head>
+<body>
+<strong th:text="|Weather History for: ${location.city}, ${location.region}, ${location.country}|">
+Weather History for
+</strong>
+<br/>
+
+<ul th:each="weather:${weathers}">
+    <li th:text="|Temperature: ${weather.condition.temp}|">Temperature:</li>
+    <li th:text="|Condition: ${weather.condition.text}|">Condition:</li>
+    <li th:text="|Humidity: ${weather.atmosphere.humidity}|">Humidity:</li>
+    <li th:text="|Date: ${weather.date}|">Date:</li>
+</ul>
+
+</body>
+</html>

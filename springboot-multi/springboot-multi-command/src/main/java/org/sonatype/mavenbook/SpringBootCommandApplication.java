@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.sonatype.mavenbook.command.formatters.WeatherFormatter;
 import org.sonatype.mavenbook.model.Location;
 import org.sonatype.mavenbook.model.Weather;
-import org.sonatype.mavenbook.repository.LocationRepository;
 import org.sonatype.mavenbook.weather.WeatherService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,13 +20,11 @@ import java.util.stream.Collectors;
 @SpringBootApplication
 public class SpringBootCommandApplication {
 
-    private final LocationRepository locationRepository;
     private final WeatherService weatherService;
     private final WeatherFormatter weatherFormatter;
 
 
-    public SpringBootCommandApplication(LocationRepository locationRepository, WeatherService weatherService, WeatherFormatter weatherFormatter) {
-        this.locationRepository = locationRepository;
+    public SpringBootCommandApplication(WeatherService weatherService, WeatherFormatter weatherFormatter) {
         this.weatherService = weatherService;
         this.weatherFormatter = weatherFormatter;
     }
@@ -44,7 +41,7 @@ public class SpringBootCommandApplication {
             if( args[0].equals("weather")) {
                 getWeather(args[1]);
             } else {
-                getHistory(args[1]);
+                showHistory(args[1]);
             }
         };
     }
@@ -57,8 +54,8 @@ public class SpringBootCommandApplication {
         log.info(weatherFormatter.formatWeather(weather));
     }
 
-    public void getHistory(String location) throws Exception {
-        Optional<Location> foundLocation = locationRepository.findByCity(location);
+    public void showHistory(String location) throws Exception {
+        Optional<Location> foundLocation = weatherService.getLocation(location);
         if (foundLocation.isPresent()){
             log.info("##### found location: {} ###########",foundLocation.get().getCity());
             List<Weather> weathersInLocation = weatherService.getWeatherByLocation(foundLocation.get());
