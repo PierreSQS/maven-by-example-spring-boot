@@ -44,7 +44,7 @@ public class WeatherService {
 		return weatherRepository.save(weather);
 	}
 
-	public List<Weather> getWeatherByLocation(String location) {
-		return weatherRepository.findBylocation(location);
+	public List<Weather> getWeatherByLocation(Location location) {
+		return weatherRepository.findBylocationId(location.getId());
 	}
 }

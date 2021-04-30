@@ -60,10 +60,12 @@ public class SpringBootCommandApplication {
     public void getHistory(String location) throws Exception {
         Optional<Location> foundLocation = locationRepository.findByCity(location);
         if (foundLocation.isPresent()){
-            List<Weather> weathersInLocation = weatherService.getWeatherByLocation(location);
+            log.info("##### found location: {} ###########",foundLocation.get().getCity());
+            List<Weather> weathersInLocation = weatherService.getWeatherByLocation(foundLocation.get());
             log.info(weatherFormatter.formatHistory(foundLocation.get(), weathersInLocation));
+        } else {
+            log.info("######## No History present!!!!#########");
         }
-        log.info("######## No History present!!!!#########");
     }
 
 }

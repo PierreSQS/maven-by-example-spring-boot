@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface WeatherRepository extends CrudRepository<Weather, Long> {
-    List<Weather> findBylocation(String location);
+    List<Weather> findBylocationId(String locationID);
 }
