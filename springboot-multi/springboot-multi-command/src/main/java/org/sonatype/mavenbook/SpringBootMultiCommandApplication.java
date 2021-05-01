@@ -18,19 +18,19 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @SpringBootApplication
-public class SpringBootCommandApplication {
+public class SpringBootMultiCommandApplication {
 
     private final WeatherService weatherService;
     private final WeatherFormatter weatherFormatter;
 
 
-    public SpringBootCommandApplication(WeatherService weatherService, WeatherFormatter weatherFormatter) {
+    public SpringBootMultiCommandApplication(WeatherService weatherService, WeatherFormatter weatherFormatter) {
         this.weatherService = weatherService;
         this.weatherFormatter = weatherFormatter;
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootCommandApplication.class, args);
+        SpringApplication.run(SpringBootMultiCommandApplication.class, args);
     }
 
 

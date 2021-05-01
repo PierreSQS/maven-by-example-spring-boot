@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbootMultiWebAppApplication {
+public class SpringBootMultiWebAppApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootMultiWebAppApplication.class, args);
+        SpringApplication.run(SpringBootMultiWebAppApplication.class, args);
     }
 }
