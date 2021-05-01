@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface LocationRepository extends CrudRepository<Location, Long> {
     Optional<Location> findByWoeid(String woeid);
-    Optional<Location> findByCity(String location);
+    Optional<Location> findByCity(String city);
 }

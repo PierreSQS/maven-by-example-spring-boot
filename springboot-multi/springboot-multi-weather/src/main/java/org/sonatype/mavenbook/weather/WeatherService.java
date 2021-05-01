@@ -28,9 +28,9 @@ public class WeatherService {
 		this.weatherRepository = weatherRepository;
 	}
 
-	public Weather retrieveForecast(String location) throws Exception {
+	public Weather retrieveForecast(String city) throws Exception {
 		// Retrieve Data
-		InputStream dataIn = yahooRetriever.retrieve(location);
+		InputStream dataIn = yahooRetriever.retrieve(city);
 
 		// Parse DataS
 		return yahooParser.parse(dataIn);
@@ -38,7 +38,7 @@ public class WeatherService {
 
 	public Weather save(Weather weather) {
 		// Save location only if it doesn't exist!!!
-		Optional<Location> existingLocation = getLocation(weather.getLocation().getCity());
+		Optional<Location> existingLocation = findCity(weather.getLocation().getCity());
 		if (existingLocation.isEmpty()) {
 			locationRepository.save(weather.getLocation());
 		} else {
@@ -47,20 +47,20 @@ public class WeatherService {
 		return weatherRepository.save(weather);
 	}
 
-	public List<Weather> getHistory(String location) throws Exception {
+	public List<Weather> getHistory(String city) throws Exception {
 		List<Weather> weathersInLocation = new ArrayList<>();
-		Optional<Location> foundLocation = getLocation(location);
+		Optional<Location> foundLocation = findCity(city);
 		if (foundLocation.isPresent()){
 			log.info("##### found location: {} ###########",foundLocation.get().getCity());
 			weathersInLocation = getWeatherByLocation(foundLocation.get());
 		} else {
-			log.info("######## No History present for Location {}!!!!#########",location);
+			log.info("######## No History present for Location {}!!!!#########",city);
 		}
 		return weathersInLocation;
 	}
 
-	public Optional<Location> getLocation(String location) {
-		return locationRepository.findByCity(location);
+	public Optional<Location> findCity(String city) {
+		return locationRepository.findByCity(city);
 	}
 
 	public List<Weather> getWeatherByLocation(Location location) {

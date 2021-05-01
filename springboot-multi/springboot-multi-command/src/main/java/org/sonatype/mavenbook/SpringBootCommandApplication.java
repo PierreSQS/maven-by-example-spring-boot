@@ -46,16 +46,16 @@ public class SpringBootCommandApplication {
         };
     }
 
-    public void getWeather(String location) throws Exception {
-        Weather weather = weatherService.retrieveForecast(location);
+    public void getWeather(String city) throws Exception {
+        Weather weather = weatherService.retrieveForecast(city);
         weather = weatherService.save(weather);
         log.debug("###### Weather Infos saved!!! ######");
         log.debug("Saved Weather: {} {} {} ", weather.getLocation().getCity(), weather.getDate(), weather.getAtmosphere().getHumidity());
         log.info(weatherFormatter.formatWeather(weather));
     }
 
-    public void showHistory(String location) throws Exception {
-        Optional<Location> foundLocation = weatherService.getLocation(location);
+    public void showHistory(String city) throws Exception {
+        Optional<Location> foundLocation = weatherService.findCity(city);
         if (foundLocation.isPresent()){
             log.info("##### found location: {} ###########",foundLocation.get().getCity());
             List<Weather> weathersInLocation = weatherService.getWeatherByLocation(foundLocation.get());

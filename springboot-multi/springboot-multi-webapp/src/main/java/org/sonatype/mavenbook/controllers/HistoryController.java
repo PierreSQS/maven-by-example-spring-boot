@@ -20,13 +20,13 @@ public class HistoryController {
     }
 
     @GetMapping
-    public String displayWeatherHistory(Model model, @RequestParam String location) throws Exception {
+    public String displayWeatherHistory(Model model, @RequestParam String city) throws Exception {
         Location unknown = new Location();
         unknown.setCity(UNKNOWNLOCATION);
         unknown.setCountry(UNKNOWNLOCATION);
         unknown.setRegion(UNKNOWNLOCATION);
-        model.addAttribute("location", weatherService.getLocation(location).orElse(unknown));
-        model.addAttribute("weathers",weatherService.getHistory(location));
+        model.addAttribute("location", weatherService.findCity(city).orElse(unknown));
+        model.addAttribute("weathers",weatherService.getHistory(city));
         return "weatherHistoryPage";
     }
 }
