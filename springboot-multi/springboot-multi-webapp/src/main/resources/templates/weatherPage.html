@@ -9,10 +9,10 @@
     ${weather.location.city}, ${weather.location.region}, ${weather.location.country}|">Current Weather Conditions for:</strong><br/>
 <ul>
     <li th:text="|Temperature: ${weather.condition.temp}|">Temperature: </li>
-    <li th:text="|Temperature: ${weather.condition.text}|">Condition: </li>
-    <li th:text="|Temperature: ${weather.atmosphere.humidity}|">Humidity: </li>
-    <li th:text="|Temperature: ${weather.wind.chill}|">Wind Chill: </li>
-    <li th:text="|Temperature: ${weather.date}|">Date: </li>
+    <li th:text="|Condition: ${weather.condition.text}|">Condition: </li>
+    <li th:text="|Humidity: ${weather.atmosphere.humidity}|">Humidity: </li>
+    <li th:text="|Wind: ${weather.wind.chill}|">Wind Chill: </li>
+    <li th:text="|Date: ${weather.date}|">Date: </li>
 </ul>
 
 </body>
