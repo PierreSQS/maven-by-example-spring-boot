@@ -20,7 +20,7 @@ public class WeatherController {
         this.weatherService = weatherService;
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public String getWeatherAtLocation(@RequestParam String location, Model model) throws Exception {
         Weather weather = weatherService.retrieveForecast(location);
         log.info("######## Weather location: {} #########",weather.getLocation().getCity());
