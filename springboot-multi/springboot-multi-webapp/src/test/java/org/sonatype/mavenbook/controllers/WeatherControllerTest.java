@@ -15,11 +15,8 @@ import java.util.Date;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @WebMvcTest(WeatherController.class)
@@ -62,10 +59,10 @@ class WeatherControllerTest {
     }
 
     @Test
-//    @Disabled
-    void testGetWeatherAtLocationReturnsViewAndModel() throws Exception {
+    void testGetWeatherAtLocationReturnsViewAndModelAndContent() throws Exception {
         mockMvc.perform(get("/weather").param("location", "Libreville"))
                 .andExpect(status().isOk())
+                .andExpect(model().attributeExists("weather"))
                 .andExpect(content().string(containsString(("Libreville, Estuaire, Gabon"))))
                 .andExpect(view().name("weatherPage"))
                 .andDo(MockMvcResultHandlers.print());
