@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface WeatherRepository extends CrudRepository<Weather, Integer> {
-    List<Weather> findWeatherByLocation(Location location);
+    List<Weather> checkWeatherByLocation(Location location);
 }

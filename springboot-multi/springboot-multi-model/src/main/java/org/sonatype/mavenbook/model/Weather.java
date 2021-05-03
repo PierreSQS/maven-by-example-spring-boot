@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@NamedQuery(name = "Weather.findPlacesWithID", query = "from Weather w where w.id = :id")
+@NamedQuery(name = "Weather.checkWeatherByLocation", query = "from Weather w where w.location = :location")
 public class Weather {
 
     @Id

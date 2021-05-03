@@ -64,6 +64,6 @@ public class WeatherService {
 	}
 
 	public List<Weather> getWeatherByLocation(Location location) {
-		return weatherRepository.findWeatherByLocation(location);
+		return weatherRepository.checkWeatherByLocation(location);
 	}
 }
