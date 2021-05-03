@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface LocationRepository extends CrudRepository<Location, Long> {
+public interface LocationRepository extends CrudRepository<Location, Integer> {
     Optional<Location> findByWoeid(String woeid);
     Optional<Location> findByCity(String city);
 }

@@ -64,6 +64,6 @@ public class WeatherService {
 	}
 
 	public List<Weather> getWeatherByLocation(Location location) {
-		return weatherRepository.findPlacesWithID(Long.valueOf(location.getId()));
+		return weatherRepository.findWeatherByLocation(location);
 	}
 }
