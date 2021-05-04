@@ -5,26 +5,26 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.sonatype.mavenbook.model.Location;
 import org.sonatype.mavenbook.model.Weather;
-import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
 import java.util.List;
 
 @Slf4j
 @Component
 public class WeatherFormatter {
 
-    private final ApplicationContext ctx;
-
-    public WeatherFormatter(ApplicationContext ctx) {
-        this.ctx = ctx;
-    }
+    private ClassPathResource classPathResource;
 
     public String formatWeather(Weather weather) throws Exception {
         log.info( "Formatting Weather Data" );
 
-        InputStream inputStream = ctx.getResource("templates/velocity/weather.vm").getInputStream();
+        classPathResource = new ClassPathResource("templates/velocity/weather.vm");
+        InputStream inputStream = classPathResource.getInputStream();
 
         Reader reader = new InputStreamReader(inputStream);
 
@@ -38,8 +38,9 @@ public class WeatherFormatter {
     public String   formatHistory(Location location, List<Weather> weathers)
             throws Exception {
         log.info( "Formatting History Data" );
+        classPathResource = new ClassPathResource("templates/velocity/history.vm");
         Reader reader =
-                new InputStreamReader( ctx.getResource("templates/velocity/history.vm").getInputStream());
+                new InputStreamReader(classPathResource.getInputStream());
         VelocityContext context = new VelocityContext();
         context.put("location", location );
         context.put("weathers", weathers );
