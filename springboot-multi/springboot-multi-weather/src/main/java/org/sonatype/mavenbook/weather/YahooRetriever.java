@@ -135,7 +135,7 @@ public class YahooRetriever {
 
 		WebClient webClient = WebClient.create(YAHOOWEATHERURL);
 
-		Mono<String> inputStreamMono = webClient.get()
+		Mono<String> weatherData = webClient.get()
 				.uri(uriBuilder -> uriBuilder.path("")
 						.queryParam("location", location)
 						.build())
@@ -147,7 +147,7 @@ public class YahooRetriever {
 				.bodyToMono(String.class)
 				.log();
 
-		return inputStreamMono.block();
+		return weatherData.block();
 	}
 	
 	public void go(String location) throws Exception {
