@@ -22,6 +22,9 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 public class YahooRetriever {
@@ -31,7 +34,8 @@ public class YahooRetriever {
 	private static final String CONSUMERSECRET = "725732a7344b12c56f4742514342c17ee7d851ca";
 	private static final String YAHOOWEATHERURL = "https://weather-ydn-yql.media.yahoo.com/forecastrss";
 	private static final String HTTPCLIENTVERSION = "4.5.13";
-	
+	private static final String WEBCLIENTVERSION = "5.3.4";
+
 	private String signature;
 	private String oauthNonce;
 	private long timestamp;
@@ -116,10 +120,40 @@ public class YahooRetriever {
         return response.getEntity().getContent();
         
 	}
+
+	public String retrieveDataWithWebClient(String location) {
+		String authorizationLine = "OAuth " +
+				"oauth_consumer_key=\"" + CONSUMERKEY + "\", " +
+				"oauth_nonce=\"" + oauthNonce + "\", " +
+				"oauth_timestamp=\"" + timestamp + "\", " +
+				"oauth_signature_method=\"HMAC-SHA1\", " +
+				"oauth_signature=\"" + signature + "\", " +
+				"oauth_version=\"1.0\"";
+
+		log.info("Authorisation: {}",authorizationLine);
+		log.info( "Using Reactive webClient {}...", WEBCLIENTVERSION);
+
+		WebClient webClient = WebClient.create(YAHOOWEATHERURL);
+
+		Mono<String> inputStreamMono = webClient.get()
+				.uri(uriBuilder -> uriBuilder.path("")
+						.queryParam("location", location)
+						.build())
+				.accept(MediaType.APPLICATION_XML)
+				.header(HttpHeaders.AUTHORIZATION, authorizationLine)
+				.header(HttpHeaders.CONTENT_TYPE, "application/xml")
+				.header("Yahoo-App-Id", APPID)
+				.retrieve()
+				.bodyToMono(String.class)
+				.log();
+
+		return inputStreamMono.block();
+	}
 	
 	public void go(String location) throws Exception {
 		configureRequestContext(location);
-		retrieveData(location);
+//		retrieveData(location);
+		retrieveDataWithWebClient(location);
 	}
 	
 	public static void main(String...args) {
