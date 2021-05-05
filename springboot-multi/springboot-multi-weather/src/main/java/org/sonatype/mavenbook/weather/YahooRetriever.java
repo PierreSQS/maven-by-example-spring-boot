@@ -118,8 +118,7 @@ public class YahooRetriever {
 	}
 	
 	public void go(String location) throws Exception {
-		configureRequestContext(location);
-		retrieveData(location);
+		retrieve(location);
 	}
 	
 	public static void main(String...args) {
