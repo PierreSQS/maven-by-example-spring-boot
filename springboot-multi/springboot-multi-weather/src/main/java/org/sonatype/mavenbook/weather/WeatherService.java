@@ -1,6 +1,5 @@
 package org.sonatype.mavenbook.weather;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,10 +29,10 @@ public class WeatherService {
 
 	public Weather retrieveForecast(String city) throws Exception {
 		// Retrieve Data
-		InputStream dataIn = yahooRetriever.retrieve(city);
+		String dataIn = yahooRetriever.retrieve(city);
 
 		// Parse DataS
-		return yahooParser.parse(dataIn);
+		return yahooParser.parseString(dataIn);
 	}
 
 	public Weather save(Weather weather) {

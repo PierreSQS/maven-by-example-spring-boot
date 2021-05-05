@@ -1,6 +1,5 @@
 package org.sonatype.mavenbook.weather;
 
-import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +19,7 @@ import org.sonatype.mavenbook.model.Weather;
 public class YahooParser {
 
 
-    public Weather parse(InputStream inputStream) throws Exception {
+    public Weather parseString(String inputStream) throws Exception {
         Weather weather = new Weather();
 
         log.info("Creating XML Reader");
