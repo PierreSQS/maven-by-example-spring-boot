@@ -1,5 +1,6 @@
 package org.sonatype.mavenbook.weather;
 
+import java.io.StringReader;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +25,8 @@ public class YahooParser {
 
         log.info("Creating XML Reader");
         SAXReader xmlReader = createXmlReader();
-        Document doc = xmlReader.read(inputStream);
+        Document doc = xmlReader.read(new StringReader(inputStream));
+        log.debug("Message to parse: {}",doc.asXML());
 
         log.info("Parsing XML Response");
         Location location = new Location();
