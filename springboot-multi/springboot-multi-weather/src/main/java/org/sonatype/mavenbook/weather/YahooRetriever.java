@@ -27,7 +27,7 @@ public class YahooRetriever {
 	private static final String CONSUMERKEY = "dj0yJmk9MThGTERmc2VNSUxCJmQ9WVdrOVF6WklXbk5FTXpBbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTky";
 	private static final String CONSUMERSECRET = "725732a7344b12c56f4742514342c17ee7d851ca";
 	private static final String YAHOOWEATHERURL = "https://weather-ydn-yql.media.yahoo.com/forecastrss";
-	private static final String WEBCLIENTVERSION = "5.3.4";
+	private static final String WEBCLIENTVERSION = "5.3.5";
 
 	private String signature;
 	private String oauthNonce;
