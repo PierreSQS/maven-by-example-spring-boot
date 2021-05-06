@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<rss xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" version="2.0">
+ <channel>
+  <yweather:units distance="mile" pressure="inch Hg" speed="m/h" temperature="F"/>
+  <title>Yahoo! Weather - New York, NY, US</title>
+  <link>https://www.yahoo.com/news/weather/country/state/city-2459115/</link>
+  <description>Yahoo! Weather for New York, NY, US</description>
+  <language>en-us</language>
+  <lastBuildDate>Thu, 06 May 2021 12:23 PM EDT</lastBuildDate>
+  <ttl>60</ttl>
+  <yweather:location city="New York" country="United States" region=" NY"/>
+  <yweather:wind chill="55" direction="325" speed="13.67"/>
+  <yweather:atmosphere humidity="44" pressure="29.91" rising="0" visibility="10.00"/>
+  <yweather:astronomy sunrise="5:49 am" sunset="7:57 pm"/>
+  <image>
+   <title>Yahoo! Weather</title>
+   <width>142</width>
+   <height>18</height>
+   <link>https://www.yahoo.com/news/weather/</link>
+   <url>http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif</url>
+  </image>
+  <item>
+   <title>Conditions for New York, NY, US at 11:00 AM EDT</title>
+   <geo:lat>40.71455</geo:lat>
+   <geo:long>-74.007118</geo:long>
+   <link>https://www.yahoo.com/news/weather/country/state/city-2459115/</link>
+   <pubDate>Thu, 06 May 2021 11:00 AM EDT</pubDate>
+   <yweather:condition code="32" date="Thu, 06 May 2021 11:00 AM EDT" temp="58" text="Sunny"/>
+   <yweather:forecast code="30" date="06 May 2021" day="Thu" high="65" low="50" text="Partly Cloudy"/>
+   <yweather:forecast code="28" date="07 May 2021" day="Fri" high="62" low="50" text="Mostly Cloudy"/>
+   <yweather:forecast code="11" date="08 May 2021" day="Sat" high="54" low="48" text="Showers"/>
+   <yweather:forecast code="39" date="09 May 2021" day="Sun" high="62" low="45" text="Scattered Showers"/>
+   <yweather:forecast code="12" date="10 May 2021" day="Mon" high="61" low="50" text="Rain"/>
+   <yweather:forecast code="30" date="11 May 2021" day="Tue" high="62" low="48" text="Partly Cloudy"/>
+   <yweather:forecast code="30" date="12 May 2021" day="Wed" high="64" low="47" text="Partly Cloudy"/>
+   <yweather:forecast code="28" date="13 May 2021" day="Thu" high="64" low="49" text="Mostly Cloudy"/>
+   <yweather:forecast code="23" date="14 May 2021" day="Fri" high="62" low="51" text="Breezy"/>
+   <yweather:forecast code="30" date="15 May 2021" day="Sat" high="65" low="51" text="Partly Cloudy"/>
+   <description>&lt;![CDATA[&lt;img src="http://l.yimg.com/a/i/us/we/52/32.gif"/&gt;
+    &lt;BR /&gt;
+    &lt;b&gt;Current Conditions:&lt;/b&gt;
+    &lt;BR /&gt;Sunny
+    &lt;BR /&gt;
+    &lt;BR /&gt;
+    &lt;b&gt;Forecast:&lt;/b&gt;
+    &lt;BR /&gt; Thu - Partly Cloudy. High: 65 Low: 50
+    &lt;BR /&gt; Fri - Mostly Cloudy. High: 62 Low: 50
+    &lt;BR /&gt; Sat - Showers. High: 54 Low: 48
+    &lt;BR /&gt; Sun - Scattered Showers. High: 62 Low: 45
+    &lt;BR /&gt; Mon - Rain. High: 61 Low: 50
+    &lt;BR /&gt;
+    &lt;BR /&gt;
+    &lt;a href="https://www.yahoo.com/news/weather/country/state/city-2459115/"&gt;Full Forecast at Yahoo! Weather&lt;/a&gt;
+    &lt;BR /&gt;
+    &lt;BR /&gt;
+    &lt;BR /&gt;
+    ]]&gt;</description>
+   <guid isPermaLink="false"/>
+  </item>
+ </channel>
+</rss>
