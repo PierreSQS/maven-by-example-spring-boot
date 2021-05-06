@@ -26,6 +26,7 @@ public class YahooParser {
         log.info("Creating XML Reader");
         SAXReader xmlReader = createXmlReader();
         Document doc = xmlReader.read(inputStream);
+        log.debug("Message to parse: {}",doc.asXML());
 
         log.info("Parsing XML Response");
         Location location = new Location();
