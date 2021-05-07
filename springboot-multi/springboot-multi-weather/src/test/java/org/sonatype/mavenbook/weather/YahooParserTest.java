@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.sonatype.mavenbook.model.Weather;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
@@ -23,11 +23,9 @@ class YahooParserTest {
 
     private String content;
 
-    @Autowired //possible because of @BootStrapWith Annotation!!!
-    private ResourceLoader resourceLoader;
-
     @BeforeEach
     void setUp() throws IOException {
+        ResourceLoader resourceLoader = new ClassPathXmlApplicationContext();
         Resource weatherFileResource = resourceLoader.getResource("ny-weather.xml");
 
         BufferedReader bufferedReader = new BufferedReader(
