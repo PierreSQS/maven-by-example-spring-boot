@@ -25,11 +25,10 @@ class YahooParserTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        ResourceLoader resourceLoader = new ClassPathXmlApplicationContext();
-        Resource weatherFileResource = resourceLoader.getResource("ny-weather.xml");
+        InputStreamSource streamSource = new ClassPathResource("ny-weather.xml");
 
         BufferedReader bufferedReader = new BufferedReader(
-                new InputStreamReader(weatherFileResource.getInputStream()));
+                new InputStreamReader(streamSource.getInputStream()));
         content = bufferedReader.lines().collect(Collectors.joining("\n"));
     }
 
