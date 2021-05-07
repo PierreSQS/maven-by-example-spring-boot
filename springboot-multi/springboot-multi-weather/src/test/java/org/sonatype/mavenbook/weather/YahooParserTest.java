@@ -5,10 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.sonatype.mavenbook.model.Weather;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.InputStreamSource;
 
 import java.io.BufferedReader;
 import java.io.IOException;
