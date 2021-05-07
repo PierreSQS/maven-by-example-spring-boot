@@ -15,7 +15,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.HttpHeaders;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -32,6 +32,7 @@ public class YahooRetriever {
 	private String signature;
 	private String oauthNonce;
 	private long timestamp;
+
 
 	public String retrieve(String location) throws Exception {
 		log.info("Retrieving Weather Data for location: {}...", location);
