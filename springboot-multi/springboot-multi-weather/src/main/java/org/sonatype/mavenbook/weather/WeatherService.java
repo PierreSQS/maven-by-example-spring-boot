@@ -2,8 +2,10 @@ package org.sonatype.mavenbook.weather;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 import org.sonatype.mavenbook.model.Location;
@@ -64,6 +66,9 @@ public class WeatherService {
 	}
 
 	public List<Weather> getWeatherByLocation(Location location) {
-		return weatherRepository.checkWeatherByLocation(location);
+		return weatherRepository.checkWeatherByLocation(location)
+				.stream()
+				.sorted(Comparator.comparing(Weather::getDate).reversed())
+				.collect(Collectors.toList());
 	}
 }
