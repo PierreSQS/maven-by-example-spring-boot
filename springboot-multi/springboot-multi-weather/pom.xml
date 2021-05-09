@@ -11,13 +11,12 @@
 
     <artifactId>springboot-multi-weather</artifactId>
 
-    <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency><dependency>
             <groupId>org.sonatype.mavenbook.multi</groupId>
             <artifactId>springboot-multi-model</artifactId>
         </dependency>

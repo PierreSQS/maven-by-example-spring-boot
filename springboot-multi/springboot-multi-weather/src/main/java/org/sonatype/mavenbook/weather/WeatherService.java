@@ -41,7 +41,7 @@ public class WeatherService {
 	public Weather save(Weather weather) {
 		Optional<Location> existingLocation = findCity(weather.getLocation().getCity());
 		// Save location only if it doesn't exist!!!
-		if (existingLocation.isEmpty()) {
+		if (!existingLocation.isPresent()) {
 			locationRepository.save(weather.getLocation());
 		} else {
 			weather.setLocation(existingLocation.get());

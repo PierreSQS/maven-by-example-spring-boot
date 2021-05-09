@@ -24,15 +24,18 @@ public class SpringBootMultiCommandApplication {
     private final WeatherFormatter weatherFormatter;
 
 
-    public SpringBootMultiCommandApplication(WeatherService weatherService, WeatherFormatter weatherFormatter) {
+    public SpringBootMultiCommandApplication(WeatherService weatherService) {
         this.weatherService = weatherService;
-        this.weatherFormatter = weatherFormatter;
+        this.weatherFormatter = createWeatherFormatter();
+    }
+
+    private static WeatherFormatter createWeatherFormatter() {
+        return new WeatherFormatter();
     }
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootMultiCommandApplication.class, args);
     }
-
 
     @Bean
     public CommandLineRunner commandLineRunner() {

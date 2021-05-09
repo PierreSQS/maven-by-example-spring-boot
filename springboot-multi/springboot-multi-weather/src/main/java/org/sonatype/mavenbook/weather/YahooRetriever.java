@@ -56,7 +56,7 @@ public class YahooRetriever {
 		parameters.add("oauth_signature_method=HMAC-SHA1");
 		parameters.add("oauth_timestamp=" + timestamp);
 		parameters.add("oauth_version=1.0");
-		parameters.add("location=" + URLEncoder.encode(location, StandardCharsets.UTF_8));
+		parameters.add("location=" + URLEncoder.encode(location, StandardCharsets.UTF_8.toString()));
 
 		Collections.sort(parameters);
 
@@ -64,8 +64,8 @@ public class YahooRetriever {
 
 		StringBuilder parametersList = new StringBuilder(params);
 
-		String signatureString = "GET&" + URLEncoder.encode(YAHOOWEATHERURL, StandardCharsets.UTF_8) + "&"
-				+ URLEncoder.encode(parametersList.toString(), StandardCharsets.UTF_8);
+		String signatureString = "GET&" + URLEncoder.encode(YAHOOWEATHERURL, StandardCharsets.UTF_8.toString()) + "&"
+				+ URLEncoder.encode(parametersList.toString(), StandardCharsets.UTF_8.toString());
 
 		signature = null;
 		try {

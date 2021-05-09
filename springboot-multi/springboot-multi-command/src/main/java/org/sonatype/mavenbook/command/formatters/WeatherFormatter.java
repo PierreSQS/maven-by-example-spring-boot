@@ -5,9 +5,8 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.sonatype.mavenbook.model.Location;
 import org.sonatype.mavenbook.model.Weather;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamSource;
-import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,18 +15,16 @@ import java.io.StringWriter;
 import java.util.List;
 
 @Slf4j
-@Component
+//@Component
 public class WeatherFormatter {
 
-    @Qualifier("weather")
     private final InputStreamSource weatherSource;
 
-    @Qualifier("history")
     private final InputStreamSource historySource;
 
-    public WeatherFormatter(InputStreamSource weatherSource, InputStreamSource historySource) {
-        this.weatherSource = weatherSource;
-        this.historySource = historySource;
+    public WeatherFormatter() {
+        this.weatherSource = new ClassPathResource("templates/velocity/weather.vm");
+        this.historySource = new ClassPathResource("templates/velocity/history.vm");
     }
 
     public String formatWeather(Weather weather) throws Exception {
