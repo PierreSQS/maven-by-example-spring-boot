@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Yahoo Weather Forecast</title>
+    <title th:text="|Yahoo Weather Forecast for ${weather.location.city}"|>Yahoo Weather Forecast</title>
 </head>
 <body>
 <strong th:text="|Current Weather Conditions for:
